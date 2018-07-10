@@ -1,0 +1,107 @@
+@import '../mixins.scss';
+
+#hacker-news {
+  $minorColor: #D3D3D3;
+  $lightFont: #B8B9B9;
+  $darkerFont: #747F82;
+  @include font();
+  display: flex;
+  align-items: flex-start;
+
+  svg {
+    height: 16px;
+    width: 16px;
+
+    .cls-1 {
+      fill: none;
+      stroke: $darkerFont;
+      stroke-miterlimit: 10;
+    }
+  }
+
+  .panel {
+    flex: 1;
+
+    &.left {
+      border-right: 2px solid $darkerFont;
+    }
+
+    .top-bar {
+      height: 50px;
+      background-color: $minorColor;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .title {
+        font-size: 32px;
+        font-weight: bold;
+      }
+
+      .search {
+        margin-left: auto;
+        margin-right: 10px;
+        position: relative;
+
+        svg {
+          @include absolute(top 50%);
+          transform: translateY(-50%);
+          left: 10px;
+        }
+
+        #input {
+          font-size: 16px;
+          border-radius: 5px;
+          border-width: 1px;
+          box-shadow: 2px 1px 7px -1px #888;
+          background-color: #f1f1f1;
+          padding: 5px 30px;
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    .content {
+      .story {
+        padding: 20px;
+        cursor: pointer;
+        box-sizing: border-box;
+
+        &:hover {
+          background-color: #CBCBCB;
+
+          .meta {
+            color: $darkerFont;
+          }
+        }
+
+        &.no-hover {
+          background-color: transparent;
+          cursor: default;
+        }
+
+        .meta {
+          display: flex;
+          align-items: center;
+          font-size: 12px;
+          color: $lightFont;
+          margin-bottom: 10px;
+          font-weight: bold;
+
+          .date {
+            margin-left: auto;
+          }
+        }
+
+        .title {
+          font-weight: bold;
+          margin: 10px 0;
+        }
+
+        .text {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
