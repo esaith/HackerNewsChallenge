@@ -6,11 +6,11 @@
           <circle data-name="Ellipse 6" class="cls-1" cx="6.6" cy="6.6" r="6.6" transform="translate(0.5 0.5)" />
           <line data-name="Line 1" class="cls-1" x2="6.8" y2="6.8" transform="translate(11.4 11.4)" />
         </svg>
-        <input id="input" type="text" placeholder="Search Articles" />
+        <input id="input" type="text" name="search" placeholder="Search Articles" [(ngModel)]="searchText" (ngModelChange)="onSearchChange()" />
       </div>
     </div>
     <div class="content">
-      <div class="story" (click)="setIndexOfStory(i)" [class.active]="activeIndex === i" *ngFor="let story of stories; let i = index">
+      <div class="story" (click)="setIndexOfStory(i)" [class.active]="activeIndex === i" *ngFor="let story of filteredStories; let i = index">
         <div class="meta">
           <div class="author">{{story.by}}</div>
           <div class="date">{{story.CreatedOn}}</div>

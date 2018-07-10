@@ -28,4 +28,7 @@ Other possibilities of page creation
   * jQuery. Ten years plus ago would have been fine.
   * Any other framework: Ruby, Flash, Perl, etc. Because this company does not require nor do I have the experience. 
 
+Potential Questions about Acceptance Criteria
+  * What is the expected range for viewport sizing? 57" HDTV down to mobile? Desktop only?
+  * Any disabilities, color-bind, etc that are needed to be considered?
   Enjoy!
