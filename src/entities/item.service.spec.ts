@@ -25,18 +25,25 @@ describe('ItemService', () => {
     }));
 
     beforeEach(function(){
-        itemService.items = new Dictionary<Item>();
+        itemService.itemIds = new Dictionary<number[]>();
     })
 
-    //it('', async(() => { }))
-
-    it('should have an empty item dictionary. Should call API and grab first n number of items', inject([HttpClient], (http: HttpClient) => { 
-        spyOn(http, 'get').and.returnValue(Observable.of(1));
+    it('should have an empty itemIds dictionary. Should call API and grab first n number of items', inject([HttpClient], (http: HttpClient) => { 
+        spyOn(http, 'get').and.returnValues(Observable.of(1));
         
-        itemService.getCategoryItems('1').subscribe( x => x);
-
+        itemService.getCategoryItems('1').subscribe();
         expect(http.get).toHaveBeenCalled();
+    }));
+    
+    xit('Should retrieve from itemIds dictionary if value is already cached. Should still call api for individual items', inject([HttpClient], (http: HttpClient) => { 
+        itemService.itemIds.add('2', [1]);
+        
+        spyOn(http, 'get').and.returnValue(Observable.of(new Item()));
+        spyOn<any>(itemService, 'getItemsFromCategory');
 
+        itemService.getCategoryItems('2').subscribe();
+        expect(http.get).toHaveBeenCalled();
+        expect(itemService.getItemsFromCategory).not.toHaveBeenCalled();
     }));
 
 });

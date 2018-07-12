@@ -7,6 +7,7 @@
   @include font();
   display: flex;
   align-items: stretch;
+  min-height: 100vh;
 
   svg {
     height: 16px;
@@ -23,14 +24,14 @@
     flex: 1;
 
     &.left {
-        border-right: 2px solid $darkerFont;
-        border-left: 2px solid $darkerFont;
+      border-right: 2px solid $darkerFont;
+      border-left: 2px solid $darkerFont;
     }
 
     &.categories {
-        flex: none;
-        background-color: #747F82;
-        color: white;
+      flex: none;
+      background-color: #747F82;
+      color: white;
     }
 
     .top-bar {
@@ -40,7 +41,7 @@
       align-items: center;
       justify-content: center;
       padding: 0 10px;
-        box-sizing: border-box;
+      box-sizing: border-box;
 
       .title {
         font-size: 14px;
@@ -71,8 +72,8 @@
     }
 
     .content {
-        display: flex;
-        flex-direction: column;
+      display: flex;
+      flex-direction: column;
 
       .item {
         padding: 20px;
@@ -104,17 +105,28 @@
             margin-left: auto;
           }
         }
+
         .title {
-            font-weight: bold;
-            margin: 10px 0;
+          font-weight: bold;
+          margin: 10px 0;
+        }
+
+        a.title {
+          color: black;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
           }
+        }
 
         .text {
           font-size: 12px;
+          max-height: 45px;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
-
-      
 
       .category {
         padding: 10px;
@@ -122,20 +134,20 @@
         user-select: none;
 
         &.active {
-            box-shadow: 1px 1px 1px 1px #000;
+          box-shadow: 1px 1px 1px 1px #000;
         }
 
         &:hover .title {
-            text-decoration: underline;
+          text-decoration: underline;
         }
 
         .title {
-            font-weight: bold;
-          }
+          font-weight: bold;
+        }
 
-          .tag {
-            font-size: 10px;
-            margin-left: 15px;
+        .tag {
+          font-size: 10px;
+          margin-left: 15px;
         }
       }
     }
