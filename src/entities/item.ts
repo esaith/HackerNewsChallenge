@@ -1,6 +1,6 @@
-enum Type { job, story, comment, poll, pollopt };
+enum Type { job, item, comment, poll, pollopt, story };
 
-export class Story {
+export class Item {
     id: number;
     deleted: boolean;
     type: Type;

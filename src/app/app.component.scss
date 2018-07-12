@@ -6,7 +6,7 @@
   $darkerFont: #747F82;
   @include font();
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
 
   svg {
     height: 16px;
@@ -23,7 +23,14 @@
     flex: 1;
 
     &.left {
-      border-right: 2px solid $darkerFont;
+        border-right: 2px solid $darkerFont;
+        border-left: 2px solid $darkerFont;
+    }
+
+    &.categories {
+        flex: none;
+        background-color: #747F82;
+        color: white;
     }
 
     .top-bar {
@@ -32,9 +39,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 0 10px;
+        box-sizing: border-box;
 
       .title {
-        font-size: 32px;
+        font-size: 14px;
         font-weight: bold;
       }
 
@@ -62,7 +71,10 @@
     }
 
     .content {
-      .story {
+        display: flex;
+        flex-direction: column;
+
+      .item {
         padding: 20px;
         cursor: pointer;
         box-sizing: border-box;
@@ -92,14 +104,38 @@
             margin-left: auto;
           }
         }
-
         .title {
-          font-weight: bold;
-          margin: 10px 0;
-        }
+            font-weight: bold;
+            margin: 10px 0;
+          }
 
         .text {
           font-size: 12px;
+        }
+      }
+
+      
+
+      .category {
+        padding: 10px;
+        cursor: pointer;
+        user-select: none;
+
+        &.active {
+            box-shadow: 1px 1px 1px 1px #000;
+        }
+
+        &:hover .title {
+            text-decoration: underline;
+        }
+
+        .title {
+            font-weight: bold;
+          }
+
+          .tag {
+            font-size: 10px;
+            margin-left: 15px;
         }
       }
     }

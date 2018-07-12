@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { Story } from '../entities/story';
+import { Item } from '../entities/item';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Observable } from 'rxjs';
+import { Category } from '../entities/category';
+import { ItemService } from '../entities/item.service';
 
 @Component({
   selector: 'app-root',
@@ -9,62 +13,60 @@ import { Story } from '../entities/story';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  stories: Array<Story> = new Array<Story>();
-  activeIndex: number = -1;
-  story: Story;
-  searchText: string = '';
-  filteredStories = Array<Story>();
+  categoryIndex: number;
+  items: Array<Item> = new Array<Item>();
+  itemIndex: number = -1;
+  item: Item;
+  searchText: string;
+  filteredStories = Array<Item>();
+  categories: Array<Category>;
+  
+  constructor(private itemService: ItemService) {}
 
   ngOnInit() {
-    // let story = new Story();
-    // story.id = 1;
-    // story.title = 'WebKitGTK+ 2.12';
-    // story.by = "Planet GNOME";
-    // story.time = new Date().getUTCDate();
-    // story.text = "We did it again, the Igalia WebKit team is pleased to announce a new stable release of WebkitGTK+, with a bunch of bugs fixed, some new API bits and mananged to powerup";
-
-    // this.stories.push(story);
-    // this.stories.push(story);
-    // this.stories.push(story);
-    // this.stories.push(story);
-    // this.stories.push(story);
-    // this.stories.push(story);
-    // this.stories.push(story);
-    // this.stories.push(story);
-    // this.stories.push(story);
-    // this.stories.push(story);
-    // this.stories.push(story);
-    // this.stories.push(story);
-    // this.stories.push(story);
-    // this.stories.push(story);
-    // this.stories.push(story);
-    // this.stories.push(story);
-    // this.stories.push(story);
-    // this.stories.push(story);
-    // this.stories.push(story);
-
+    this.createCategoryList();
     this.onSearchChange();
   }
 
+  createCategoryList() {
+    this.categories = new Array<Category>();
+    this.categories.push(Object.assign(new Category(), {name: "Absolute Newest", tag: "not necessarily the coolest", id: "maxitem"}));
+    this.categories.push(Object.assign(new Category(), {name: "Top Stories", tag: "hot off the feed", id: "topstories"}));
+    this.categories.push(Object.assign(new Category(), {name: "News", tag: "don't let the zombie apocolypse pass you by", id: "newstories"}));
+    this.categories.push(Object.assign(new Category(), {name: "Best Stories", tag: "but not the last story", id: "beststories"}));
+    this.categories.push(Object.assign(new Category(), {name: "Ask?", tag: "is jeeves still around?",  id: "askstories"}));
+    this.categories.push(Object.assign(new Category(), {name: "Show", tag: "and tell", id: "showstories"}));
+    this.categories.push(Object.assign(new Category(), {name: "Job", tag: "home away from home stories", id: "jobstories"}));
+  }
+
   setIndexOfStory(index: number) {
-    if (index >= 0 && index < this.stories.length) {
-      this.activeIndex = index;
-      this.story = this.stories[index];
+    if (index >= 0 && index < this.items.length) {
+      this.itemIndex = index;
+      this.item = this.items[index];
     }
   }
 
   onSearchChange() {
     if (!this.searchText) {
-      this.filteredStories = this.stories;
+      this.filteredStories = this.items;
     } else {
       let search = this.searchText.toLowerCase();
 
-      this.filteredStories = this.stories.filter(story => {
-        return story.title.toLowerCase().indexOf(search) > -1 ||
-          story.lowerCaseText.indexOf(search) > -1 ||
-          story.id.toString() == search;
+      this.filteredStories = this.items.filter(item => {
+        return item.title.toLowerCase().indexOf(search) > -1 ||
+          item.lowerCaseText.indexOf(search) > -1 ||
+          item.id.toString() == search;
       });
     }
+  }
+
+  getSelectedCategoryItems(index: number) {
+    this.categoryIndex = index;
+
+    this.itemService.getCategoryItems(this.categories[index].id).subscribe(items => {
+      this.items = items;
+      this.onSearchChange();
+    });
   }
 }
 

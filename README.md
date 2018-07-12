@@ -1,7 +1,7 @@
 # HackerNewsChallenge
 RSS Feed for Hacker News
 
-Using the HackerNews API, https://github.com/HackerNews/API, to generate a web-based solution that displays the title and author of the current best stories 
+Using the HackerNews API, https://github.com/HackerNews/API, to generate a web-based solution that displays the title and author of the current best items 
 on Hacker News.
 
 Things to be included:
